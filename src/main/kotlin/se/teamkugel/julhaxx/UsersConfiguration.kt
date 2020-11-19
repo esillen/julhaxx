@@ -10,23 +10,22 @@ class UsersConfiguration(userRepository: UserRepository,
                          completedChallengesRepository: CompletedChallengesRepository) {
     init {
         System.out.println("running userInit...")
-        val erik = userRepository.save(User("erik", "asdf"))
-        val fredde = userRepository.save(User("fredde", "asdf"))
-        completedChallengesRepository.save(CompletedChallenge(
+        val cc1 = completedChallengesRepository.save(CompletedChallenge(
                 day = 1,
-                extraInfo = "Score: 10000",
-                user = erik
+                extraInfo = "Score: 10000"
         ))
-        completedChallengesRepository.save(CompletedChallenge(
+        val cc2 = completedChallengesRepository.save(CompletedChallenge(
                 day = 2,
-                extraInfo = "Score: 2737",
-                user = erik
+                extraInfo = "Score: 2737"
         ))
-        completedChallengesRepository.save(CompletedChallenge(
+        val cc3 = completedChallengesRepository.save(CompletedChallenge(
                 day = 1,
-                extraInfo = "Score: 37",
-                user = fredde
+                extraInfo = "Score: 37"
         ))
+        val erik = userRepository.save(User("erik", "asdf", mutableListOf(cc1, cc2)))
+        val fredde = userRepository.save(User("fredde", "asdf", mutableListOf(cc3)))
+        val caro = userRepository.save(User("caro", "asdf", mutableListOf()))
+
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
 

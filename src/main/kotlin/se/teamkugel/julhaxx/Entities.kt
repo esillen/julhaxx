@@ -7,7 +7,6 @@ import javax.persistence.*
 class CompletedChallenge(
         var day: Int,
         var extraInfo: String,
-        @ManyToOne var user: User,
         var completedAt: LocalDateTime = LocalDateTime.now(),
         @Id @GeneratedValue var id: Long? = null)
 
@@ -15,6 +14,11 @@ class CompletedChallenge(
 class User(
         var username: String,
         var password: String,
-        var completion: Int = 0,
+        @OneToMany var completedChallenges: MutableList<CompletedChallenge>,
         @Id @GeneratedValue var id: Long? = null)
 
+@Entity
+class Day(
+        @Id var number: Int,
+        var challengeCode: String
+)

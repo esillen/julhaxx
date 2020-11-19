@@ -8,3 +8,6 @@ interface UserRepository : CrudRepository<User, Long> {
 
 interface CompletedChallengesRepository: CrudRepository<CompletedChallenge, Long> {
 }
+
+interface DaysRepository: CrudRepository<Day, Int> {
+}

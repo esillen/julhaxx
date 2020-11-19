@@ -1,0 +1,18 @@
+{{> header}}
+
+<h1>Hej {{username}}!</h1>
+
+<h2>Du har klarat följande dagar</h2>
+<ul>
+    {{#completion}}
+        <li>dag {{day}}</li>
+    {{/completion}}
+</ul>
+
+<ul>
+    <li><a href="/game?day=1">dag 1</a></li>
+    <li><a href="/game?day=2">dag 2</a></li>
+    <li><a href="/game?day=3">dag 3</a></li>
+    <li><a href="/game?day=4">dag 4</a></li>
+    <li><a href="/game?day=5">dag 5</a></li>
+</ul>
