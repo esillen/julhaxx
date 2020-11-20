@@ -1,3 +1,12 @@
+a {
+    text-decoration: none;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
 .main-container {
     height: 400px;
     margin: 10px;
@@ -13,4 +22,44 @@
 
 form {
     margin: 0px;
+}
+
+/* Can probably make this part cleaner but i suck at css */
+.top-row-container {
+    display: flex;
+    flex-direction: row;
+    background-color: cyan;
+}
+
+.top-row-user {
+    flex: 1;
+    color: white;
+    background-color: green;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+}
+
+.top-row-day {
+    flex: 1;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+    color: black;
+}
+
+.top-row-day.top-row-day-current {
+    background-color: lightgreen;
+}
+
+.top-row-day.top-row-day-unavailable:hover {
+    background: red;
+}
+
+a.top-row-day-link {
+    flex: 1;
+    text-align: center;
+}
+
+a.top-row-day-link:hover {
+    background-color: pink;
 }

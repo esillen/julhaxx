@@ -24,17 +24,20 @@ class HtmlController(val userRepository: UserRepository, val daysRepository: Day
     }
 
     @GetMapping("/game")
-    fun game(model: Model, @RequestParam day: String?): String {
+    fun game(model: Model, @RequestParam day: Int?): String {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user == null) {
             return error(model)
         } else {
-            val activeDay = day ?: "0"
+            val activeDay = day ?: 0 // To make /game ending up at day 0
             model["title"] = "Game"
             model["username"] = user.username
             model["completion"] = user.completedChallenges
+            model["numStars"] = user.completedChallenges.size
             model["activeDay"] = activeDay
-
+            model["topRowDays"] = daysRepository.findAll().map {
+                TopRowDay(it.number, it.available, it.number==activeDay)
+            }
             return "days/day$activeDay"
         }
     }

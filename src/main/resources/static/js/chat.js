@@ -7,17 +7,17 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/chat', function (messageDataJSON) {
             var messageData = JSON.parse(messageDataJSON.body)
-            showChatMessage(messageData.username, messageData.content);
+            showChatMessage(messageData.username, messageData.numStars, messageData.content);
         });
     });
 }
 
 function sendChatMessage() {
-    stompClient.send("/app/chat", {}, JSON.stringify({'username': username, 'content': $("#chat-message-input").val()}));
+    stompClient.send("/app/chat", {}, JSON.stringify({'username': username, 'numStars': numStars, 'content': $("#chat-message-input").val()}));
 }
 
-function showChatMessage(username, message) {
-    $("#chat-messages-container").append('<div class="message">' + username + ": " + message + "</div>");
+function showChatMessage(username, numStars, message) {
+    $("#chat-messages-container").append('<div class="message">' + username + "(" + numStars + "⭐): " + message + "</div>");
 }
 
 $(function () {
@@ -25,7 +25,10 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#chat-send" ).click(function() { sendChatMessage(); });
+    $( "#chat-send" ).click(function() {
+        sendChatMessage();
+        $("chat-message-input").val("");
+    });
 });
 
 $("chat-message-input").focus();

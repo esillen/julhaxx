@@ -20,5 +20,6 @@ class User(
 @Entity
 class Day(
         @Id var number: Int,
+        var available: Boolean,
         var challengeCode: String
 )

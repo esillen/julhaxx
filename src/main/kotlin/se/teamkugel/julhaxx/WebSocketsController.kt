@@ -11,20 +11,20 @@ class WebSocketsController {
     @SendTo("/topic/chat")
     @Throws(Exception::class)
     fun receiveChatMessage(message: ChatMessage): ChatMessage {
-        return ChatMessage(message.username, message.content)
+        return ChatMessage(message.username, message.numStars, message.content)
     }
 
     @MessageMapping("/login")
     @SendTo("/topic/chat")
     @Throws(Exception::class)
     fun receiveLoginMessage(message: ChatMessage): ChatMessage {
-        return ChatMessage(message.username, "Loggade just in!")
+        return ChatMessage(message.username, message.numStars, "Loggade just in!")
     }
 
     @SendTo("/topic/chat")
     @Throws(Exception::class)
     fun sendCompletedMessage(message: ChatMessage): ChatMessage {
-        return ChatMessage(message.username, "Loggade just in!")
+        return ChatMessage(message.username, message.numStars,"Loggade just in!")
     }
 
     companion object {
