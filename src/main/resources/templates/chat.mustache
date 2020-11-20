@@ -1,25 +1,20 @@
-<h2>Chatt</h2>
+<div class="chat-container">
 
+    <div class="chat-messages-wrapper">
+        <div class="chat-messages-container" id="chat-messages-container">
 
-<div class="messages-container">
-    <table class="chat">
-        <thead>
-        <tr>
-            <th>Chattmeddelanden</th>
-        </tr>
-        </thead>
-        <tbody id="chat-messages">
-        </tbody>
-    </table>
-</div>
-
-<form class="form">
-    <div>
-        <label for="chat-message-input">Skriv något</label>
-        <input type="text" id="chat-message-input" placeholder="...">
+        </div>
     </div>
-    <button id="send" type="submit">Skicka</button>
-</form>
 
-<script>var username="{{username}}";</script>
-<script src="/js/chat.js"></script>
+    <form class="form">
+
+        <div class="chat-send-message-container">
+            <input type="text" id="chat-message-input" class="chat-message-input" placeholder="Skriv något...">
+            <button id="chat-send" type="submit">Skicka</button>
+        </div>
+    </form>
+
+    <script>var username="{{username}}";</script>
+    <script src="/js/chat.js"></script>
+
+</div>

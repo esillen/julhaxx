@@ -1,0 +1,16 @@
+.main-container {
+    height: 400px;
+    margin: 10px;
+    border: 2px black solid;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.game-container {
+
+}
+
+form {
+    margin: 0px;
+}

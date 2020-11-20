@@ -1,4 +1,5 @@
 table.chat {
+    width: 100%;
     border: 2px black solid;
     overflow-x:scroll;
 }
@@ -8,7 +9,31 @@ td.message {
     padding: 4px;
 }
 
-.messages-container {
-    height: 500px;
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages-container {
+    flex:1;
+    padding: 0px 5px 0px 5px;
+}
+
+.chat-messages-wrapper {
     overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    flex: 1;
+}
+
+.chat-send-message-container {
+    display:flex;
+    flex-direction:row;
+}
+
+.chat-message-input {
+    flex: 1;
+    height:30px;
 }

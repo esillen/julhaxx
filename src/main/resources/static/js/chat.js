@@ -17,7 +17,7 @@ function sendChatMessage() {
 }
 
 function showChatMessage(username, message) {
-    $("#chat-messages").append('<tr><td class="message">' + username + ": " + message + "</td></tr>");
+    $("#chat-messages-container").append('<div class="message">' + username + ": " + message + "</div>");
 }
 
 $(function () {
@@ -25,7 +25,7 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#send" ).click(function() { sendChatMessage(); });
+    $( "#chat-send" ).click(function() { sendChatMessage(); });
 });
 
 $("chat-message-input").focus();
