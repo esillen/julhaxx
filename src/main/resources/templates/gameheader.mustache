@@ -1,8 +1,11 @@
 {{> header}}
 
-<h1>Hej {{username}}!</h1>
+<script>var activeDay="{{activeDay}}";</script>
 
-<h2>Du har klarat följande dagar</h2>
+<h1>Hej {{username}}!</h1>
+<h2>Du kollar just nu på dag {{activeDay}}.</h2>
+
+<h2>Du har klarat följande dagar:</h2>
 <ul>
     {{#completion}}
         <li>dag {{day}}</li>

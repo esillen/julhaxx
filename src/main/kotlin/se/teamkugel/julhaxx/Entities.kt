@@ -14,7 +14,7 @@ class CompletedChallenge(
 class User(
         var username: String,
         var password: String,
-        @OneToMany var completedChallenges: MutableList<CompletedChallenge>,
+        @OneToMany(cascade = [(CascadeType.ALL)]) var completedChallenges: MutableList<CompletedChallenge>,
         @Id @GeneratedValue var id: Long? = null)
 
 @Entity

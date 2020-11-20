@@ -5,9 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import java.lang.Exception
 
 @Controller
@@ -31,10 +29,13 @@ class HtmlController(val userRepository: UserRepository, val daysRepository: Day
         if (user == null) {
             return error(model)
         } else {
+            val activeDay = day ?: "0"
             model["title"] = "Game"
             model["username"] = user.username
             model["completion"] = user.completedChallenges
-            return "days/day" + (day ?: "0")
+            model["activeDay"] = activeDay
+
+            return "days/day$activeDay"
         }
     }
 
@@ -78,8 +79,24 @@ class HtmlController(val userRepository: UserRepository, val daysRepository: Day
     }
 
     @PostMapping("/code")
-    fun verifyCode(@RequestParam code: String) {
-        // Verify if todays code is correct
+    @ResponseBody
+    fun verifyCode(@RequestParam day: String, @RequestBody codePayload: String) : String {
+        // TODO: verify code
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user != null) {
+            val alreadyCompletedChallenge = user.completedChallenges.find { it.day.toString().equals(day) }
+            if (alreadyCompletedChallenge != null) {
+                // TODO: Update or whatever...
+            } else {
+                user.completedChallenges.add(CompletedChallenge(day.toInt(), "extra info"))
+                userRepository.save(user)
+            }
+            return "Success!!"
+
+        } else {
+            //TODO handle this case (wtf case actually)
+            return "failure :/"
+        }
     }
 
 }

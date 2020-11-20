@@ -11,7 +11,7 @@ class WebSocketsController {
     @SendTo("/topic/chat")
     @Throws(Exception::class)
     fun receiveChatMessage(message: ChatMessage): ChatMessage {
-        return ChatMessage(message.username, "from server: " + message.content)
+        return ChatMessage(message.username, message.content)
     }
 
     @MessageMapping("/login")

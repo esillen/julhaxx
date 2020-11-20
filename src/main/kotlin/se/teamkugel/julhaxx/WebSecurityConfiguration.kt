@@ -15,23 +15,23 @@ import java.lang.Thread.sleep
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("se.teamkugel.julhaxx")
 class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepository: UserRepository) : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http
-                .csrf()
-                    .disable()
+                .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/", "/home").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/", "/js/**", "/css/**", "/webgl/**", "/unity.html").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/game")
+                .permitAll()
+                .and()
                 .logout()
-                    .permitAll()
+                .permitAll();
     }
 
     @Bean
