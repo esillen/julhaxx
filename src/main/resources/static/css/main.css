@@ -15,6 +15,7 @@ body {
 }
 
 .main-container {
+    height: 400px;
     flex: 1;
     background-image: url("/img/christmas-background.jpg");
     background-size: 100%;

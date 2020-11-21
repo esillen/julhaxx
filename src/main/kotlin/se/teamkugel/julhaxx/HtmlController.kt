@@ -1,7 +1,6 @@
 package se.teamkugel.julhaxx
 
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,15 +14,8 @@ class HtmlController(val userRepository: UserRepository,
                      val webSocketsController: WebSocketsController /*Uuuuh this is ugly. But how else to solve it?*/) {
 
     @GetMapping("/")
-    fun blog(model: Model): String {
-        model["title"] = "Blog"
-        return "blog"
-    }
-
-    @GetMapping("/home")
-    fun home(model: Model): String {
-        model["title"] = "Home"
-        return "blog"
+    fun index(model: Model): String {
+        return game(model, 0)
     }
 
     @GetMapping("/game")
@@ -33,7 +25,7 @@ class HtmlController(val userRepository: UserRepository,
             return error(model)
         } else {
             val activeDay = day ?: 0 // To make /game ending up at day 0
-            model["title"] = "Game"
+            model["title"] = "Julspelet"
             model["username"] = user.username
             model["completion"] = user.completedChallenges
             model["numStars"] = user.completedChallenges.size
@@ -82,19 +74,13 @@ class HtmlController(val userRepository: UserRepository,
 
     @GetMapping("/login")
     fun login(model: Model): String {
-        model["title"] = "Login"
+        model["title"] = "Logga in"
         return "login"
-    }
-
-    @GetMapping("/hello")
-    fun hello(model: Model): String {
-        model["title"] = "Hello"
-        return "hello"
     }
 
     @GetMapping("/error")
     fun error(model: Model): String {
-        model["title"] = "Error"
+        model["title"] = "Något gick fel :("
         return "error"
     }
 
