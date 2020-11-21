@@ -35,7 +35,7 @@ class WebSocketsController(val userRepository: UserRepository,
         if (user != null) {
             val message = ChatMessage(loggedInEvent.authentication.name, user.completedChallenges.size, "Loggade just in!")
             addMessageToQueue(message)
-            //websocketsTemplate.convertAndSend("/topic/chat", message)
+            websocketsTemplate.convertAndSend("/topic/chat", message)
         }
     }
 
