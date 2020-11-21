@@ -32,6 +32,7 @@ td.message {
 }
 
 .chat-message-from-user {
+    word-break: break-word;
     color: white;
     background-color: rgb(75 52 16 / 40%);
     margin-top: 6px;
