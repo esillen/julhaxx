@@ -1,16 +1,17 @@
 package se.teamkugel.julhaxx
 
+import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
-import java.lang.Thread.sleep
+import org.springframework.stereotype.Component
 
 
 @Configuration
@@ -46,5 +47,12 @@ class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepo
                     .build()
         }
         return InMemoryUserDetailsManager(users)
+    }
+}
+
+@Component
+class AuthenticationListener : ApplicationListener<AuthenticationSuccessEvent?> {
+    override fun onApplicationEvent(event: AuthenticationSuccessEvent) {
+        System.out.println("Loggged in!!")
     }
 }

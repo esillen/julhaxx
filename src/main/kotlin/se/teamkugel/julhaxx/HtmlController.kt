@@ -1,6 +1,7 @@
 package se.teamkugel.julhaxx
 
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.*
 import java.lang.Exception
 
 @Controller
-class HtmlController(val userRepository: UserRepository, val daysRepository: DaysRepository) {
+class HtmlController(val userRepository: UserRepository,
+                     val daysRepository: DaysRepository,
+                     val webSocketsController: WebSocketsController /*Uuuuh this is ugly. But how else to solve it?*/) {
 
     @GetMapping("/")
     fun blog(model: Model): String {
@@ -94,6 +97,7 @@ class HtmlController(val userRepository: UserRepository, val daysRepository: Day
             } else {
                 user.completedChallenges.add(CompletedChallenge(day.toInt(), "extra info"))
                 userRepository.save(user)
+                webSocketsController.sendCompletedMessage(user, day)
             }
             return "Success!!"
 
