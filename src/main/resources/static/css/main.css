@@ -29,39 +29,3 @@ body {
 form {
     margin: 0px;
 }
-
-/* Can probably make this part cleaner but i suck at css */
-.top-row-container {
-    display: flex;
-    flex-direction: row;
-    background-color: forestgreen;
-}
-
-.top-row-item {
-    flex: 1;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 0px 10px 0px;
-    color: black;
-}
-
-.top-row-item.top-row-item-current {
-    background-color: darkgreen;
-}
-
-.top-row-item.top-row-item-white {
-    color: white;
-}
-
-.top-row-item.top-row-item-unavailable:hover {
-    background: firebrick;
-}
-
-a.top-row-item-link {
-    flex: 1;
-    text-align: center;
-}
-
-a.top-row-item-link:hover {
-    background-color: mediumseagreen;
-}
