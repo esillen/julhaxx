@@ -1,12 +1,32 @@
 {{> header}}
 
-<h1>{{title}}</h1>
 
-<form action="login" method="post">
-    <div><label> User Name : <input id="login-username-input" type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<div class="login-wrapper">
+
+    <div class="login-container">
+        <div class="login-header">Ultimata Julspelet</div>
+
+        <div class="login-form-container">
+            <form action="login" method="post">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="login-right-adjust">Användarnamn</td>
+                            <td><input id="login-username-input" type="text" name="username"/></td>
+                        </tr>
+                        <tr>
+                            <td class="login-right-adjust">Lösenord</td>
+                            <td><input type="password" name="password"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="login-submit-container"><input type="submit" value="Sign In"/></div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
 
 <script>
     $("#login-username-input").focus();

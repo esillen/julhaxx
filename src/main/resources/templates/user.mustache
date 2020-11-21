@@ -1,11 +1,13 @@
 {{> header}}
 
-<h1>{{title}}</h1>
-<h2>Klarade dagar:</h2>
-<ul>
-{{#userData.completedChallenges}}
-    <li>Dag {{day}} ⭐</li>
-{{/userData.completedChallenges}}
-</ul>
+<div class="user-container">
+    <h1>{{title}}</h1>
+    <h2>Klarade dagar:</h2>
+    <ul>
+    {{#userData.completedChallenges}}
+        <li>Dag {{day}} ⭐</li>
+    {{/userData.completedChallenges}}
+    </ul>
+</div>
 
 {{> footer}}

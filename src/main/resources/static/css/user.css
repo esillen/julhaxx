@@ -1,0 +1,9 @@
+.user-container {
+    flex: 1;
+    background-image: url("/img/christmas-background.jpg");
+    background-size: 100%;
+    padding: 50px;
+    display flex;
+    flex-direction: column;
+    align-items: center;
+}

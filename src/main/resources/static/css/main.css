@@ -6,13 +6,28 @@ body {
     font-size: 16px;
     padding: 0px;
     margin: 0px;
-    background-image: url("/img/christmas-background.jpg");
-    background-size: 100%;
+}
+
+.main-wrapper {
+    min-height:100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-container {
-    height: 400px;
-    margin: 10px;
+    flex: 1;
+    background-image: url("/img/christmas-background.jpg");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-vertical-pad {
+    flex:1;
+}
+
+.main-columns {
+    padding: 10px;
     display: flex;
     flex-direction: row;
 }
@@ -28,4 +43,10 @@ body {
 
 form {
     margin: 0px;
+}
+
+.footer-container {
+    background-color: #663300;
+    color:  white;
+    padding: 5px;
 }
