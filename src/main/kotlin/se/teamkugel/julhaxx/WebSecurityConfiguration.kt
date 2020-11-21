@@ -22,7 +22,7 @@ class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepo
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/js/**", "/css/**", "/webgl/**", "/unity.html").permitAll()
+                .antMatchers("/", "/js/**", "/css/**", "/img/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

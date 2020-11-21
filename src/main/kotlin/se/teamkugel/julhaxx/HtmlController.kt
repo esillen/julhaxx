@@ -46,6 +46,19 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
+    @GetMapping("/user/{username}")
+    fun userProfile(model: Model, @PathVariable username: String):String {
+        val user = userRepository.findByUsername(username)
+        if (user == null) {
+            return error(model)
+        } else {
+            model["title"] = "${username}s profil"
+            model["userData"] = user
+            return "user"
+        }
+    }
+
+
     @PostMapping("/completeChallenge")
     fun completeChallenge(model: Model, @RequestParam day: String?/*TODO not optional*/, @RequestParam code: String?/*TODO not optional*/) {
         // TODO: optionals haxx instead of this mess
