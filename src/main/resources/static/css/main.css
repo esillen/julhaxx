@@ -5,19 +5,24 @@ a {
 body {
     padding: 0px;
     margin: 0px;
+    background-image: url("/img/christmas-background.jpg");
+    background-size: 100%;
 }
 
 .main-container {
     height: 400px;
     margin: 10px;
-    border: 2px black solid;
     display: flex;
     flex-direction: row;
 }
 
+.main-content-left-pad {
+    flex: 1;
+}
+
 
 .game-container {
-
+    background-color: rgb(47,47,47);
 }
 
 form {
@@ -28,13 +33,13 @@ form {
 .top-row-container {
     display: flex;
     flex-direction: row;
-    background-color: cyan;
+    background-color: forestgreen;
 }
 
 .top-row-user {
     flex: 1;
     color: white;
-    background-color: green;
+    background-color: forestgreen;
     padding: 10px 0px 10px 0px;
     text-align: center;
 }
@@ -48,11 +53,11 @@ form {
 }
 
 .top-row-day.top-row-day-current {
-    background-color: lightgreen;
+    background-color: darkgreen;
 }
 
 .top-row-day.top-row-day-unavailable:hover {
-    background: red;
+    background: firebrick;
 }
 
 a.top-row-day-link {
@@ -61,5 +66,5 @@ a.top-row-day-link {
 }
 
 a.top-row-day-link:hover {
-    background-color: pink;
+    background-color: mediumseagreen;
 }

@@ -17,7 +17,7 @@ function sendChatMessage() {
 }
 
 function showChatMessage(messageData) {
-    $("#chat-messages-container").append('<div class="message">' + messageData.username + "(" + messageData.numStars + "⭐): " + messageData.content + "</div>");
+    $("#chat-messages-container").append('<div class="chat-message">' + messageData.username + "(" + messageData.numStars + "⭐): " + messageData.content + "</div>");
 }
 
 $(function () {

@@ -14,6 +14,9 @@ td.message {
     flex: 1;
     display: flex;
     flex-direction: column;
+    background-image: url("/img/wooden-boards.jpg");
+    background-size: auto 100%;
+    margin-left: 5px;
 }
 
 .chat-messages-container {
@@ -26,6 +29,13 @@ td.message {
     display: flex;
     flex-direction: column-reverse;
     flex: 1;
+}
+
+.chat-message {
+    color: white;
+    background-color: rgb(75 52 16 / 40%);
+    margin-top: 6px;
+    padding: 2px;
 }
 
 .chat-send-message-container {
