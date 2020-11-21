@@ -35,6 +35,7 @@ class HtmlController(val userRepository: UserRepository, val daysRepository: Day
             model["completion"] = user.completedChallenges
             model["numStars"] = user.completedChallenges.size
             model["activeDay"] = activeDay
+            model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
             model["topRowDays"] = daysRepository.findAll().map {
                 TopRowDay(it.number, it.available, it.number==activeDay)
             }

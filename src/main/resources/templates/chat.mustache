@@ -14,7 +14,18 @@
         </div>
     </form>
 
-    <script>var username="{{username}}";</script>
+    <script>
+        var username="{{username}}";
+        var chatHistory = [
+        {{#chatHistory}}
+            {
+                "username": "{{username}}",
+                "numStars": "{{numStars}}",
+                "content": "{{content}}"
+            },
+        {{/chatHistory}}
+        ];
+    </script>
     <script src="/js/chat.js"></script>
 
 </div>
