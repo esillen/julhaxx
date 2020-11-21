@@ -31,12 +31,31 @@ td.message {
     flex: 1;
 }
 
-.chat-message {
+.chat-message-from-user {
     color: white;
     background-color: rgb(75 52 16 / 40%);
     margin-top: 6px;
     padding: 2px;
 }
+
+.chat-message-login {
+    font-size: 14px;
+    color: white;
+    font-style: italic;
+    background-color: rgb(75 52 16 / 40%);
+    margin-top: 6px;
+    padding: 2px;
+}
+
+.chat-message-completed-challenge {
+    font-weight: bold;
+    color: lightgreen;
+    background-color: rgb(75 52 16 / 40%);
+    margin-top: 6px;
+    padding: 2px;
+}
+
+
 
 .chat-send-message-container {
     display:flex;

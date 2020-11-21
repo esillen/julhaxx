@@ -17,13 +17,14 @@ class WebSocketsController(val userRepository: UserRepository,
     @MessageMapping("/chat")
     @SendTo("/topic/chat")
     @Throws(Exception::class)
-    fun receiveChatMessage(message: ChatMessage): ChatMessage {
+    fun receiveChatMessage(receivedMessage: ReceivedChatMessage): ChatMessage {
+        val message = ChatMessage(receivedMessage.username, receivedMessage.numStars, receivedMessage.content, ChatMessageType.FROM_USER)
         addMessageToQueue(message)
         return message
     }
 
     fun sendCompletedMessage(user: User, day: String) {
-        val message = ChatMessage(user.username, user.completedChallenges.size, "Klarade just dag $day!")
+        val message = ChatMessage(user.username, user.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
         addMessageToQueue(message)
         websocketsTemplate.convertAndSend("/topic/chat", message)
     }
@@ -33,7 +34,7 @@ class WebSocketsController(val userRepository: UserRepository,
     fun onLoggedIn(loggedInEvent: InteractiveAuthenticationSuccessEvent) {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user != null) {
-            val message = ChatMessage(loggedInEvent.authentication.name, user.completedChallenges.size, "Loggade just in!")
+            val message = ChatMessage(loggedInEvent.authentication.name, user.completedChallenges.size, "", ChatMessageType.LOGIN)
             addMessageToQueue(message)
             websocketsTemplate.convertAndSend("/topic/chat", message)
         }
