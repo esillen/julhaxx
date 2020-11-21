@@ -1,0 +1,29 @@
+<script>
+    var activeDay="{{activeDay}}";
+    var numStars="{{numStars}}";
+</script>
+
+<div class="top-row-container">
+    <a class="top-row-item-link" href="/user/{{username}}">
+        <div class="top-row-item top-row-item-white">🎄 {{username}}({{numStars}}⭐) </div>
+    </a>
+    {{#topRowDays}}
+        {{#current}}
+            <div class="top-row-item top-row-item-current">Dag {{number}}</div>
+        {{/current}}
+        {{^current}}
+            {{#available}}
+                <a class="top-row-item-link" href="/game?day={{number}}">
+                <div class="top-row-item">
+                    Dag {{number}}
+                </div>
+                </a>
+
+            {{/available}}
+            {{^available}}
+                <div class="top-row-item top-row-item-unavailable">🔒 Dag {{number}}</div>
+            {{/available}}
+        {{/current}}
+    {{/topRowDays}}
+
+</div>

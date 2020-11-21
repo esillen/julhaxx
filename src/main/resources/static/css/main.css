@@ -37,15 +37,7 @@ form {
     background-color: forestgreen;
 }
 
-.top-row-user {
-    flex: 1;
-    color: white;
-    background-color: forestgreen;
-    padding: 10px 0px 10px 0px;
-    text-align: center;
-}
-
-.top-row-day {
+.top-row-item {
     flex: 1;
     font-weight: bold;
     text-align: center;
@@ -53,19 +45,23 @@ form {
     color: black;
 }
 
-.top-row-day.top-row-day-current {
+.top-row-item.top-row-item-current {
     background-color: darkgreen;
 }
 
-.top-row-day.top-row-day-unavailable:hover {
+.top-row-item.top-row-item-white {
+    color: white;
+}
+
+.top-row-item.top-row-item-unavailable:hover {
     background: firebrick;
 }
 
-a.top-row-day-link {
+a.top-row-item-link {
     flex: 1;
     text-align: center;
 }
 
-a.top-row-day-link:hover {
+a.top-row-item-link:hover {
     background-color: mediumseagreen;
 }
