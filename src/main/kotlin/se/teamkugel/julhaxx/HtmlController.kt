@@ -25,7 +25,7 @@ class HtmlController(val userRepository: UserRepository,
             return error(model)
         } else {
             val activeDay = day ?: 0 // To make /game ending up at day 0
-            model["title"] = "Julspelet"
+            model["title"] = "Dag $day"
             model["username"] = user.username
             model["completion"] = user.completedChallenges
             model["numStars"] = user.completedChallenges.size
@@ -38,8 +38,18 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
+    @GetMapping("/leaderboard")
+    fun leaderboard(model: Model): String {
+        val users = userRepository.findAll()
+        model["users"] = users.map {
+            LeaderboardUser(it.username, it.completedChallenges.size)
+        }.sortedByDescending { it.numStars }
+        model["title"] = "Topplista"
+        return "leaderboard"
+    }
+
     @GetMapping("/user/{username}")
-    fun userProfile(model: Model, @PathVariable username: String):String {
+    fun userProfile(model: Model, @PathVariable username: String): String {
         val user = userRepository.findByUsername(username)
         if (user == null) {
             return error(model)

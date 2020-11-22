@@ -1,0 +1,22 @@
+{{> header}}
+
+<table>
+    <thead>
+    <tr>
+        <td>Namn</td>
+        <td>Stjärnor</td>
+    </tr>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td>{{username}}</td>
+            <td>{{numStars}}⭐</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
+
+
+
+{{>footer }}
