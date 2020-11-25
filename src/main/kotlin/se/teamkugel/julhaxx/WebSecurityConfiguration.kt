@@ -46,7 +46,8 @@ class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepo
 //                    .roles("USER")
 //                    .build()
 //        }
-        return MattesUserDetailsManager(userRepository)
+
+        return MattesUserDetailsManager(UserDetailsRepositoryAdapter(userRepository))
     }
 }
 

@@ -25,7 +25,7 @@ class HtmlController(val userRepository: UserRepository,
             return error(model)
         } else {
             val activeDay = day ?: 0 // To make /game ending up at day 0
-            model["title"] = "Dag $day"
+            model["title"] = "Dag $activeDay"
             model["username"] = user.username
             model["completion"] = user.completedChallenges
             model["numStars"] = user.completedChallenges.size
