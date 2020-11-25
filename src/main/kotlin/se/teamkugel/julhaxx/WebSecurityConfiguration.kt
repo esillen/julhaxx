@@ -38,15 +38,15 @@ class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepo
     @Bean
     @DependsOn("userInit")
     public override fun userDetailsService(): UserDetailsService {
-        System.out.println("Num Users" + userRepository.findAll().count())
-        val users = userRepository.findAll().map {
-            User.withDefaultPasswordEncoder()
-                    .username(it.username)
-                    .password(it.password)
-                    .roles("USER")
-                    .build()
-        }
-        return InMemoryUserDetailsManager(users)
+//        System.out.println("Num Users" + userRepository.findAll().count())
+//        val users = userRepository.findAll().map {
+//            User.withDefaultPasswordEncoder()
+//                    .username(it.username)
+//                    .password(it.password)
+//                    .roles("USER")
+//                    .build()
+//        }
+        return MattesUserDetailsManager(userRepository)
     }
 }
 
