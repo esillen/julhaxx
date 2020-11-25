@@ -25,6 +25,7 @@ class UsersConfiguration(userRepository: UserRepository,
         val erik = userRepository.save(User("erik", "asdf", mutableListOf(cc1, cc2)))
         val fredde = userRepository.save(User("fredde", "asdf", mutableListOf(cc3)))
         val caro = userRepository.save(User("caro", "asdf", mutableListOf()))
+        val matte = userRepository.save(User("matte", "asdf", mutableListOf()))
 
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
