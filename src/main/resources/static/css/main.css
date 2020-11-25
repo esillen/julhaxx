@@ -28,6 +28,7 @@ body {
 }
 
 .main-columns {
+    height:400px;
     padding: 10px;
     display: flex;
     flex-direction: row;
