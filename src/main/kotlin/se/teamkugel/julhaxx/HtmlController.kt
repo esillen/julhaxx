@@ -26,6 +26,7 @@ class HtmlController(val userRepository: UserRepository,
         } else {
             val activeDay = day ?: 0 // To make /game ending up at day 0
             model["title"] = "Dag $activeDay"
+            model["user"] = user
             model["username"] = user.username
             model["completion"] = user.completedChallenges
             model["numStars"] = user.completedChallenges.size
@@ -46,6 +47,19 @@ class HtmlController(val userRepository: UserRepository,
         }.sortedByDescending { it.numStars }
         model["title"] = "Topplista"
         return "leaderboard"
+    }
+
+    val NUMBER_OF_GROUPS = 3
+    @GetMapping("/manuals/{manualid}")
+    fun manual(model: Model, @PathVariable manualid: String) : String {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        val userId = user?.id
+        if (userId == null) {
+            return error(model)
+        } else {
+            model["group${userId % NUMBER_OF_GROUPS}"] = true
+            return "manuals/$manualid"
+        }
     }
 
     @GetMapping("/user/{username}")
@@ -90,7 +104,7 @@ class HtmlController(val userRepository: UserRepository,
 
     @GetMapping("/error")
     fun error(model: Model): String {
-        model["title"] = "Något gick fel :("
+        model["title"] = "Fel fel fel"
         return "error"
     }
 

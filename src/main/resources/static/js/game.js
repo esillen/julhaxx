@@ -4,3 +4,4 @@ function sendChallengeCode(code) {
         //console.log(window.alert("Yay du vann!!"));
     });
 }
+
