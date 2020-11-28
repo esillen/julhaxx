@@ -45,9 +45,9 @@ $(function () {
     });
     $( "#chat-send" ).click(function() {
         sendChatMessage();
-        $("chat-message-input").val("");
+        $("#chat-message-input").val("");
     });
     chatHistory.forEach(messageData => showChatMessage(messageData));
 });
 
-$("chat-message-input").focus();
+$("#chat-message-input").focus();
