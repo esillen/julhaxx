@@ -27,15 +27,16 @@ class HtmlController(val userRepository: UserRepository,
             val activeDay = day ?: 0 // To make /game ending up at day 0
             model["title"] = "Dag $activeDay"
             model["user"] = user
-            model["username"] = user.username
-            model["completion"] = user.completedChallenges
-            model["numStars"] = user.completedChallenges.size
             model["activeDay"] = activeDay
             model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
-            model["topRowDays"] = daysRepository.findAll().map {
-                TopRowDay(it.number, it.available, it.number==activeDay)
-            }
+            addTopRowDays(model, activeDay)
             return "days/day$activeDay"
+        }
+    }
+
+    fun addTopRowDays(model: Model, activeDay: Int = -1) {
+        model["topRowDays"] = daysRepository.findAll().map {
+            TopRowDay(it.number, it.available, it.number==activeDay)
         }
     }
 
@@ -62,14 +63,17 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
-    @GetMapping("/user/{username}")
-    fun userProfile(model: Model, @PathVariable username: String): String {
-        val user = userRepository.findByUsername(username)
-        if (user == null) {
+    @GetMapping("/user/{inspectedUserUsername}")
+    fun userProfile(model: Model, @PathVariable inspectedUserUsername: String): String {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        val inspectedUser = userRepository.findByUsername(inspectedUserUsername)
+        if (user == null || inspectedUser == null) {
             return error(model)
         } else {
-            model["title"] = "${username}s profil"
-            model["userData"] = user
+            model["title"] = "${inspectedUserUsername}s profil"
+            model["inspectedUser"] = inspectedUser
+            model["user"] = user
+            addTopRowDays(model)
             return "user"
         }
     }

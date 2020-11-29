@@ -1,11 +1,16 @@
 <script>
-    var activeDay="{{activeDay}}";
-    var numStars="{{numStars}}";
+{{#activeDay}}
+    var activeDay="{{.}}";
+{{/activeDay}}
+{{^activeDay}}
+    var activeDay = null;
+{{/activeDay}}
+    var numStars="{{user.completedChallenges.size}}";
 </script>
 
 <div class="top-row-container">
-    <a class="top-row-item-link" href="/user/{{username}}">
-        <div class="top-row-item top-row-item-white">🎄 {{username}}({{numStars}}⭐) </div>
+    <a class="top-row-item-link" href="/user/{{user.username}}">
+        <div class="top-row-item top-row-item-white">🎄 {{user.username}}({{user.completedChallenges.size}}⭐) </div>
     </a>
     {{#topRowDays}}
         {{#current}}
