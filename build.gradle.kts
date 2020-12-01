@@ -7,7 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "1.4.10"
 	kotlin("plugin.jpa") version "1.4.10"
 	kotlin("plugin.allopen") version "1.3.61"
-
+	id("java")
 }
 
 
