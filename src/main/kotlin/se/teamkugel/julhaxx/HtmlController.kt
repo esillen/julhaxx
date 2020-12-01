@@ -80,6 +80,7 @@ class HtmlController(val userRepository: UserRepository,
 
 
     @PostMapping("/completeChallenge")
+    @ResponseBody
     fun completeChallenge(model: Model, @RequestParam day: Int, @RequestParam challengeNumber: Int, @RequestParam code: String) {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user == null) {
