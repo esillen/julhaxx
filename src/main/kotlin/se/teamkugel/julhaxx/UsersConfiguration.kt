@@ -12,14 +12,17 @@ class UsersConfiguration(userRepository: UserRepository,
         System.out.println("running userInit...")
         val cc1 = CompletedChallenge(
                 day = 1,
+                challengeNumber = 1,
                 extraInfo = "Score: 10000"
         )
         val cc2 = CompletedChallenge(
                 day = 2,
+                challengeNumber = 1,
                 extraInfo = "Score: 2737"
         )
         val cc3 = CompletedChallenge(
                 day = 1,
+                challengeNumber = 1,
                 extraInfo = "Score: 37"
         )
         val erik = userRepository.save(User("erik", "asdf", mutableListOf(cc1, cc2)))

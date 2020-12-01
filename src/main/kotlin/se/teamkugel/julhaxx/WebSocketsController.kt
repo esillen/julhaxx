@@ -8,19 +8,27 @@ import org.springframework.security.authentication.event.InteractiveAuthenticati
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.transaction.annotation.Transactional
+import java.security.Principal
 import java.util.*
 
 @Controller
 class WebSocketsController(val userRepository: UserRepository,
                            val websocketsTemplate: SimpMessagingTemplate) {
 
+    @Transactional
     @MessageMapping("/chat")
     @SendTo("/topic/chat")
     @Throws(Exception::class)
-    fun receiveChatMessage(receivedMessage: ReceivedChatMessage): ChatMessage {
-        val message = ChatMessage(receivedMessage.username, receivedMessage.numStars, receivedMessage.content, ChatMessageType.FROM_USER)
-        addMessageToQueue(message)
-        return message
+    fun receiveChatMessage(receivedMessage: ReceivedChatMessage, principal: Principal): ChatMessage {
+        val user = userRepository.findByUsername(principal.name)
+        if (user == null) {
+            throw Exception("Could not find user ${principal.name}")
+        } else {
+            val numStars = user.completedChallenges.size
+            val message = ChatMessage(user.username, numStars, receivedMessage.content, ChatMessageType.FROM_USER)
+            addMessageToQueue(message)
+            return message
+        }
     }
 
     fun sendCompletedMessage(user: User, day: String) {

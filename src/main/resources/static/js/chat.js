@@ -23,7 +23,7 @@ function showChatMessage(messageData){
 }
 
 function sendChatMessage() {
-    stompClient.send("/app/chat", {}, JSON.stringify({'username': username, 'numStars': numStars, 'content': $("#chat-message-input").val()}));
+    stompClient.send("/app/chat", {}, JSON.stringify({'content': $("#chat-message-input").val()}));
 }
 
 function showUserMessage(messageData) {

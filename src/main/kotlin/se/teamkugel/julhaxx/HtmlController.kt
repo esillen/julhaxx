@@ -80,23 +80,23 @@ class HtmlController(val userRepository: UserRepository,
 
 
     @PostMapping("/completeChallenge")
-    fun completeChallenge(model: Model, @RequestParam day: String?/*TODO not optional*/, @RequestParam code: String?/*TODO not optional*/) {
-        // TODO: optionals haxx instead of this mess
-        val dayNumber = try {
-          day?.toInt() ?: -1
-        } catch (e: Exception) {
-            -1
-        }
-        val dayData = daysRepository.findByIdOrNull(dayNumber)
-        if (dayData != null && code != null) {
-            if (dayData.challengeCode.equals(code)) {
-                // Correct
-
-            } else {
-                // Wrong
-            }
+    fun completeChallenge(model: Model, @RequestParam day: Int, @RequestParam challengeNumber: Int, @RequestParam code: String) {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            throw Exception("user not found or something")
         } else {
-            // Something went wrong (bad input, no match in db etc etc..)
+            if (codeMatchesChallenge(day, challengeNumber, code)) {
+                if (user.hasCompletedChallenge(day, challengeNumber)) {
+                    // Do nothing. User has already completed the challenge
+                    // TODO: add support for updating high-score.
+                } else {
+                    user.completedChallenges.add(CompletedChallenge(day, challengeNumber))
+                    userRepository.save(user)
+                    webSocketsController.sendCompletedMessage(user, "$day")
+                }
+            } else {
+                System.out.println("User ${user.username} submitted bad challenge code. day: $day, challengeNumber: $challengeNumber, code:$code")
+            }
         }
     }
 
@@ -110,28 +110,6 @@ class HtmlController(val userRepository: UserRepository,
     fun error(model: Model): String {
         model["title"] = "Fel fel fel"
         return "error"
-    }
-
-    @PostMapping("/code")
-    @ResponseBody
-    fun verifyCode(@RequestParam day: String, @RequestBody codePayload: String) : String {
-        // TODO: verify code
-        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
-        if (user != null) {
-            val alreadyCompletedChallenge = user.completedChallenges.find { it.day.toString().equals(day) }
-            if (alreadyCompletedChallenge != null) {
-                // TODO: Update or whatever...
-            } else {
-                user.completedChallenges.add(CompletedChallenge(day.toInt(), "extra info"))
-                userRepository.save(user)
-                webSocketsController.sendCompletedMessage(user, day)
-            }
-            return "Success!!"
-
-        } else {
-            //TODO handle this case (wtf case actually)
-            return "failure :/"
-        }
     }
 
 }
