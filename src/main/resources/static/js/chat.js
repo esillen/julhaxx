@@ -27,15 +27,15 @@ function sendChatMessage() {
 }
 
 function showUserMessage(messageData) {
-    $("#chat-messages-container").append('<div class="chat-message-from-user">' + messageData.username + "(" + messageData.numStars + "⭐): " + messageData.content + "</div>");
+    $("#chat-messages-container").append('<div class="chat-message-from-user">' + messageData.emoji + " " + messageData.username + "(" + messageData.numStars + "⭐): " + messageData.content + "</div>");
 }
 
 function showLoginMessage(messageData) {
-    $("#chat-messages-container").append('<div class="chat-message-login">' + messageData.username + "(" + messageData.numStars + "⭐) loggade in! </div>");
+    $("#chat-messages-container").append('<div class="chat-message-login">' + messageData.emoji + " " + messageData.username + "(" + messageData.numStars + "⭐) loggade in! </div>");
 }
 
 function showCompletedChallengeMessage(messageData) {
-    $("#chat-messages-container").append('<div class="chat-message-completed-challenge">' + messageData.username + "(" + messageData.numStars + "⭐) klarade just " + messageData.content + "!👏  🎅🎅🎅</div>");
+    $("#chat-messages-container").append('<div class="chat-message-completed-challenge">' + messageData.emoji + " " + messageData.username + "(" + messageData.numStars + "⭐) klarade just " + messageData.content + "!👏  🎅🎅🎅</div>");
 }
 
 $(function () {

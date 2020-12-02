@@ -4,22 +4,11 @@ Spelen startar 17 december.
 
 Under tiden, varför inte välja en emoji till dig själv?
 
-<form action="emoji" method="post">
+<form action="/emoji" method="post">
     <select name="emoji">
-        <option value="🎅">🎅</option>
-        <option value="🎅">🎅</option>
-        <option value="🤶">🤶</option>
-        <option value="🦌">🦌</option>
-        <option value="🦌">🦌</option>
-        <option value="🌟">🌟</option>
-        <option value="❄">❄</option>
-        <option value="☃">☃</option>
-        <option value="⛄">⛄</option>
-        <option value="🎄">🎄</option>
-        <option value="🎁">🎁</option>
-        <option value="🕯️">🕯️</option>
-        <option value="🎶">🎶</option>
-        <option value="🔔">🔔</option>
+    {{#emojis}}
+        <option value="{{.}}">{{.}}</option>
+    {{/emojis}}
     </select>
     <input type="submit" value="Välj!">
 </form>

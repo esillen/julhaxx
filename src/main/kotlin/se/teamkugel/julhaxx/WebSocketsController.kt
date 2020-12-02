@@ -25,14 +25,14 @@ class WebSocketsController(val userRepository: UserRepository,
             throw Exception("Could not find user ${principal.name}")
         } else {
             val numStars = user.completedChallenges.size
-            val message = ChatMessage(user.username, numStars, receivedMessage.content, ChatMessageType.FROM_USER)
+            val message = ChatMessage(user.username, user.emoji, numStars, receivedMessage.content, ChatMessageType.FROM_USER)
             addMessageToQueue(message)
             return message
         }
     }
 
     fun sendCompletedMessage(user: User, day: String) {
-        val message = ChatMessage(user.username, user.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
+        val message = ChatMessage(user.username, user.emoji, user.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
         addMessageToQueue(message)
         websocketsTemplate.convertAndSend("/topic/chat", message)
     }
@@ -42,7 +42,7 @@ class WebSocketsController(val userRepository: UserRepository,
     fun onLoggedIn(loggedInEvent: InteractiveAuthenticationSuccessEvent) {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user != null) {
-            val message = ChatMessage(loggedInEvent.authentication.name, user.completedChallenges.size, "", ChatMessageType.LOGIN)
+            val message = ChatMessage(user.username, user.emoji, user.completedChallenges.size, "", ChatMessageType.LOGIN)
             addMessageToQueue(message)
             websocketsTemplate.convertAndSend("/topic/chat", message)
         }

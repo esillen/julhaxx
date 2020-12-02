@@ -7,6 +7,7 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
 import java.lang.Exception
+import javax.servlet.http.HttpServletResponse
 
 @Controller
 class HtmlController(val userRepository: UserRepository,
@@ -28,6 +29,7 @@ class HtmlController(val userRepository: UserRepository,
             model["title"] = "Dag $activeDay"
             model["user"] = user
             model["activeDay"] = activeDay
+            model["emojis"] = EMOJIS
             model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
             addTopRowDays(model, activeDay)
             return "days/day$activeDay"
@@ -73,6 +75,10 @@ class HtmlController(val userRepository: UserRepository,
             model["title"] = "${inspectedUserUsername}s profil"
             model["inspectedUser"] = inspectedUser
             model["user"] = user
+            if (user.username == inspectedUserUsername) {
+                model["emojis"] = EMOJIS
+                model["isCurrentUser"] = true
+            }
             addTopRowDays(model)
             return "user"
         }
@@ -102,7 +108,8 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     @PostMapping("/emoji")
-    fun selectEmoji(model: Model, @RequestParam emoji: String) : String {
+    @ResponseBody
+    fun selectEmoji(model: Model, @RequestParam emoji: String, response: HttpServletResponse) {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user == null) {
             throw Exception("user not found or something")
@@ -110,8 +117,7 @@ class HtmlController(val userRepository: UserRepository,
             user.emoji = emoji // TODO: Make it impossible to hack?
             userRepository.save(user)
         }
-        return game(model, 0)
-
+        response.sendRedirect("/user/${user.username}")
     }
 
     @GetMapping("/login")
