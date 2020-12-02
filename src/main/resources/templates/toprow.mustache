@@ -10,7 +10,7 @@
 
 <div class="top-row-container">
     <a class="top-row-item-link" href="/user/{{user.username}}">
-        <div class="top-row-item top-row-item-white">🎄 {{user.username}}({{user.completedChallenges.size}}⭐) </div>
+        <div class="top-row-item top-row-item-white">{{user.emoji}} {{user.username}}({{user.completedChallenges.size}}⭐) </div>
     </a>
     {{#topRowDays}}
         {{#current}}

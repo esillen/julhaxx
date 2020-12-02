@@ -16,6 +16,7 @@ class CompletedChallenge(
 class User(
         var username: String,
         var password: String,
+        var emoji: String = "👶",
         @OneToMany(cascade = [(CascadeType.ALL)]) var completedChallenges: MutableList<CompletedChallenge>,
         @Id @GeneratedValue var id: Long? = null
 ) {

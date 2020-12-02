@@ -101,6 +101,19 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
+    @PostMapping("/emoji")
+    fun selectEmoji(model: Model, @RequestParam emoji: String) : String {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            throw Exception("user not found or something")
+        } else {
+            user.emoji = emoji // TODO: Make it impossible to hack?
+            userRepository.save(user)
+        }
+        return game(model, 0)
+
+    }
+
     @GetMapping("/login")
     fun login(model: Model): String {
         model["title"] = "Logga in"

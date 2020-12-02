@@ -40,7 +40,7 @@ function showCompletedChallengeMessage(messageData) {
 
 $(function () {
     connect();
-    $("form").on('submit', function (e) {
+    $("#chat-form").on('submit', function (e) {
         e.preventDefault();
     });
     $( "#chat-send" ).click(function() {

@@ -25,10 +25,10 @@ class UsersConfiguration(userRepository: UserRepository,
                 challengeNumber = 1,
                 extraInfo = "Score: 37"
         )
-        val erik = userRepository.save(User("erik", "asdf", mutableListOf(cc1, cc2)))
-        val fredde = userRepository.save(User("fredde", "asdf", mutableListOf(cc3)))
-        val caro = userRepository.save(User("caro", "asdf", mutableListOf()))
-        val matte = userRepository.save(User("matte", "asdf", mutableListOf()))
+        val erik = userRepository.save(User("erik", "asdf", "\uD83D\uDC76", mutableListOf(cc1, cc2)))
+        val fredde = userRepository.save(User("fredde", "asdf", "\uD83D\uDC76", mutableListOf(cc3)))
+        val caro = userRepository.save(User("caro", "asdf", "\uD83D\uDC76", mutableListOf()))
+        val matte = userRepository.save(User("matte", "asdf", "\uD83D\uDC76", mutableListOf()))
 
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
