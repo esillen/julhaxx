@@ -13,11 +13,11 @@ class CompletedChallenge(
 )
 
 @Entity
-class User(
+class JulhaxxUser(
         var username: String,
         var password: String,
-        var emoji: String = "👶",
         @OneToMany(cascade = [(CascadeType.ALL)]) var completedChallenges: MutableList<CompletedChallenge>,
+        var emoji: String = "👶",
         @Id @GeneratedValue var id: Long? = null
 ) {
     fun hasCompletedChallenge(dayNumber: Int, challengeNumber: Int) : Boolean {

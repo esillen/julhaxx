@@ -1,13 +1,9 @@
 package se.teamkugel.julhaxx
 
-import org.springframework.boot.ApplicationRunner
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 
 @Configuration("userInit")
-class UsersConfiguration(userRepository: UserRepository,
-                         completedChallengesRepository: CompletedChallengesRepository) {
+class UsersConfiguration(userRepository: UserRepository) {
     init {
         System.out.println("running userInit...")
         val cc1 = CompletedChallenge(
@@ -25,12 +21,19 @@ class UsersConfiguration(userRepository: UserRepository,
                 challengeNumber = 1,
                 extraInfo = "Score: 37"
         )
-        val erik = userRepository.save(User("erik", "asdf", "\uD83D\uDC76", mutableListOf(cc1, cc2)))
-        val fredde = userRepository.save(User("fredde", "asdf", "\uD83D\uDC76", mutableListOf(cc3)))
-        val caro = userRepository.save(User("caro", "asdf", "\uD83D\uDC76", mutableListOf()))
-        val matte = userRepository.save(User("matte", "asdf", "\uD83D\uDC76", mutableListOf()))
+        val erik = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("erik", "asdf",  mutableListOf(cc1, cc2)))
+        val fredde = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("fredde", "asdf", mutableListOf(cc3)))
+        val caro = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("caro", "asdf", mutableListOf()))
+        val matte = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("matte", "asdf", mutableListOf()))
 
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
 
+
+}
+
+fun UserRepository.saveIfUsernameDoesNotExist(user: JulhaxxUser) {
+    if (findByUsername(user.username) == null) {
+        save(user)
+    }
 }

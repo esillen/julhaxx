@@ -31,8 +31,8 @@ class WebSocketsController(val userRepository: UserRepository,
         }
     }
 
-    fun sendCompletedMessage(user: User, day: String) {
-        val message = ChatMessage(user.username, user.emoji, user.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
+    fun sendCompletedMessage(julhaxxUser: JulhaxxUser, day: String) {
+        val message = ChatMessage(julhaxxUser.username, julhaxxUser.emoji, julhaxxUser.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
         addMessageToQueue(message)
         websocketsTemplate.convertAndSend("/topic/chat", message)
     }

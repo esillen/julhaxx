@@ -2,7 +2,7 @@ package se.teamkugel.julhaxx
 
 private val day0ChallengeCodes = mapOf(1 to "goodstuff")
 private val day1ChallengeCodes = mapOf(1 to "thatsreallygreat", 2 to "yayyoudidit", 3 to "finaltaskcompleted")
-private val day2ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
+private val day2ChallengeCodes = mapOf(1 to "staroftheshow", 2 to "winconditionmet", 3 to "noresistanceplease")
 private val day3ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
 private val day4ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
 private val day5ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
