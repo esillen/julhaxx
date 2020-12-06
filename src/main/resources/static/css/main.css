@@ -44,4 +44,18 @@ form {
     background-color: #663300;
     color:  white;
     padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-left {
+    margin-left: 5px;
+}
+
+.footer-right {
+    margin-right: 5px;
+}
+
+a.footer-link {
+    color: lightgreen;
 }

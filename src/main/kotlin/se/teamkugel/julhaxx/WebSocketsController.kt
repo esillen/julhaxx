@@ -24,17 +24,21 @@ class WebSocketsController(val userRepository: UserRepository,
         if (user == null) {
             throw Exception("Could not find user ${principal.name}")
         } else {
-            val numStars = user.completedChallenges.size
-            val message = ChatMessage(user.username, user.emoji, numStars, receivedMessage.content, ChatMessageType.FROM_USER)
-            addMessageToQueue(message)
-            return message
+            val internalMessage = InternalChatMessage(user.username, receivedMessage.content, ChatMessageType.FROM_USER)
+            addMessageToQueue(internalMessage)
+            val chatMessage = internalMessage.toChatMessage(userRepository)
+            if (chatMessage != null) {
+                return chatMessage
+            } else {
+                throw Exception("Could not convert message :/")
+            }
         }
     }
 
-    fun sendCompletedMessage(julhaxxUser: JulhaxxUser, day: String) {
-        val message = ChatMessage(julhaxxUser.username, julhaxxUser.emoji, julhaxxUser.completedChallenges.size, "dag $day", ChatMessageType.COMPLETED_CHALLENGE)
-        addMessageToQueue(message)
-        websocketsTemplate.convertAndSend("/topic/chat", message)
+    fun sendCompletedMessage(julhaxxUser: JulhaxxUser, day: Int, challengeNumber: Int) {
+        val internalMessage = InternalChatMessage(julhaxxUser.username, "dag $day, stjärna nummer $challengeNumber", ChatMessageType.COMPLETED_CHALLENGE)
+        addMessageToQueue(internalMessage)
+        trySendMessage(internalMessage)
     }
 
     @Transactional
@@ -42,13 +46,20 @@ class WebSocketsController(val userRepository: UserRepository,
     fun onLoggedIn(loggedInEvent: InteractiveAuthenticationSuccessEvent) {
         val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
         if (user != null) {
-            val message = ChatMessage(user.username, user.emoji, user.completedChallenges.size, "", ChatMessageType.LOGIN)
-            addMessageToQueue(message)
-            websocketsTemplate.convertAndSend("/topic/chat", message)
+            val internalMessage = InternalChatMessage(user.username, "", ChatMessageType.LOGIN)
+            addMessageToQueue(internalMessage)
+            trySendMessage(internalMessage)
         }
     }
 
-    private fun addMessageToQueue(message: ChatMessage) {
+    private fun trySendMessage(internalMessage: InternalChatMessage) {
+        val chatMessage = internalMessage.toChatMessage(userRepository)
+        if (chatMessage != null) {
+            websocketsTemplate.convertAndSend("/topic/chat", chatMessage)
+        }
+    }
+
+    private fun addMessageToQueue(message: InternalChatMessage) {
         savedMessagesQueue.add(message)
         if (savedMessagesQueue.size > CHAT_HISTORY) {
             savedMessagesQueue.poll()
@@ -57,6 +68,6 @@ class WebSocketsController(val userRepository: UserRepository,
 
     companion object {
         const val CHAT_HISTORY = 50
-        val savedMessagesQueue: Queue<ChatMessage> = LinkedList()
+        val savedMessagesQueue: Queue<InternalChatMessage> = LinkedList()
     }
 }

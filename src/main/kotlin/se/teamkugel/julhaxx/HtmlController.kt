@@ -33,7 +33,7 @@ class HtmlController(val userRepository: UserRepository,
                 model["activeDay"] = activeDay
                 model["story"] = storyCompiler.daysToStoryHtml[activeDay]!!
                 model["emojis"] = EMOJIS
-                model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
+                model["chatHistory"] = WebSocketsController.savedMessagesQueue.map{ it.toChatMessage(userRepository)}.toTypedArray()
                 addTopRowDays(model, activeDay)
                 return "days/day$activeDay"
             } else {
@@ -110,7 +110,7 @@ class HtmlController(val userRepository: UserRepository,
                 } else {
                     user.completedChallenges.add(CompletedChallenge(day, challengeNumber))
                     userRepository.save(user)
-                    webSocketsController.sendCompletedMessage(user, "$day")
+                    webSocketsController.sendCompletedMessage(user, day, challengeNumber)
                 }
             } else {
                 System.out.println("User ${user.username} submitted bad challenge code. day: $day, challengeNumber: $challengeNumber, code:$code")
