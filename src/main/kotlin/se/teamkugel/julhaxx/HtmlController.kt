@@ -1,6 +1,5 @@
 package se.teamkugel.julhaxx
 
-import com.samskivert.mustache.Mustache
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
@@ -28,14 +27,18 @@ class HtmlController(val userRepository: UserRepository,
             return error(model)
         } else {
             val activeDay = day ?: 0 // To make /game ending up at day 0
-            model["title"] = "Dag $activeDay"
-            model["user"] = user
-            model["activeDay"] = activeDay
-            model["story"] = storyCompiler.daysToStoryHtml[activeDay]!!
-            model["emojis"] = EMOJIS
-            model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
-            addTopRowDays(model, activeDay)
-            return "days/day$activeDay"
+            if (activeDay == 0 || daysRepository.findByIdOrNull(activeDay)?.available == true) {
+                model["title"] = "Dag $activeDay"
+                model["user"] = user
+                model["activeDay"] = activeDay
+                model["story"] = storyCompiler.daysToStoryHtml[activeDay]!!
+                model["emojis"] = EMOJIS
+                model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
+                addTopRowDays(model, activeDay)
+                return "days/day$activeDay"
+            } else {
+                return error(model)
+            }
         }
     }
 
