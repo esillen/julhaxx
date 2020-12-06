@@ -40,7 +40,9 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     fun addTopRowDays(model: Model, activeDay: Int = -1) {
-        model["topRowDays"] = daysRepository.findAll().map {
+        model["topRowDays"] = daysRepository.findAll()
+                .sortedBy { it.number }
+                .map {
             TopRowDay(it.number, it.available, it.number==activeDay)
         }
     }

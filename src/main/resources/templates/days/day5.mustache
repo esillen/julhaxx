@@ -1,7 +1,7 @@
 {{> gameheader}}
 
 <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas"></canvas>
+    <canvas id="unity-canvas" tabindex="1"></canvas>
     <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -14,7 +14,7 @@
     </div>
 </div>
 <script>
-      var buildUrl = "/webgl/day1/Build";
+      var buildUrl = "/webgl/day5/Build";
       var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
         dataUrl: buildUrl + "/Build.data",

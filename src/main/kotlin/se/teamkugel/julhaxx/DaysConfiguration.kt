@@ -10,7 +10,7 @@ class DaysConfiguration (daysRepository: DaysRepository) {
         daysRepository.save(Day(3, true))
         daysRepository.save(Day(4, true))
         daysRepository.save(Day(5, true))
-        daysRepository.save(Day(6, false))
+        daysRepository.save(Day(6, true))
         daysRepository.save(Day(7, false))
     }
 
