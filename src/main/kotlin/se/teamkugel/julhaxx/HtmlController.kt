@@ -42,7 +42,7 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
-    fun addTopRowDays(model: Model, activeDay: Int = -1) {
+    private fun addTopRowDays(model: Model, activeDay: Int = -1) {
         model["topRowDays"] = daysRepository.findAll()
                 .sortedBy { it.number }
                 .map {
@@ -81,8 +81,11 @@ class HtmlController(val userRepository: UserRepository,
             return error(model)
         } else {
             model["title"] = "${inspectedUserUsername}s profil"
-            model["inspectedUser"] = inspectedUser
             model["user"] = user
+            model["inspectedUser"] = InspectedUser(inspectedUser.username,
+                    inspectedUser.completedChallenges.size,
+                    inspectedUser.emoji,
+                    inspectedUser.getCompletedChallengesPerDay())
             if (user.username == inspectedUserUsername) {
                 model["emojis"] = EMOJIS
                 model["isCurrentUser"] = true

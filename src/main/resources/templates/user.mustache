@@ -1,50 +1,73 @@
 {{> header}}
 {{> toprow}}
 
-<div class="user-container">
-    <h1>{{inspectedUser.username}}</h1>
+<div class="user-wrapper">
+    <div class="user-container">
+        <h1>{{inspectedUser.username}}</h1>
 
-    {{#isCurrentUser}}
-        Välj en Emoji till dig själv!
-        <form action="/emoji" method="post">
-            <select name="emoji">
-                {{#emojis}}
-                    <option value="{{.}}">{{.}}</option>
-                {{/emojis}}
-            </select>
-            <input type="submit" value="Välj!">
-        </form>
-    {{/isCurrentUser}}
-
-    {{#inspectedUser.completedChallenges.isEmpty}}
-
-        <h2>
         {{#isCurrentUser}}
-            Du
+            Välj en Emoji till dig själv!
+            <form action="/emoji" method="post">
+                <select name="emoji">
+                    {{#emojis}}
+                        <option value="{{.}}">{{.}}</option>
+                    {{/emojis}}
+                </select>
+                <input type="submit" value="Välj!">
+            </form>
         {{/isCurrentUser}}
-        {{^isCurrentUser}}
-            {{inspectedUser.username}}
-        {{/isCurrentUser}}
-            har inte klarat någon dag :'(
-        </h2>
-    {{/inspectedUser.completedChallenges.isEmpty}}
-    {{^inspectedUser.completedChallenges.isEmpty}}
-        <h2>
-        {{#isCurrentUser}}
-            Du
-        {{/isCurrentUser}}
-        {{^isCurrentUser}}
-            {{inspectedUser.username}}
-        {{/isCurrentUser}}
-            har klarat följande dagar:
-        </h2>
-        <ul>
-        {{#inspectedUser.completedChallenges}}
-            <li>Dag {{day}} ⭐</li>
-        {{/inspectedUser.completedChallenges}}
-        </ul>
-{{/inspectedUser.completedChallenges.isEmpty}}
 
+        <h2>Samlade stjärnor</h2>
+        {{#inspectedUser.completionPerDay}}
+            {{#.}}
+                <div class="user-day-stars">Dag {{dayNumber}}
+                    <br />
+                {{numCollectedStars}} / {{collectedStars.size}}
+                    <br />
+                {{#collectedStars}}
+                    {{#.}}
+                        ⭐
+                    {{/.}}
+                    {{^.}}
+                        ✰
+                    {{/.}}
+                {{/collectedStars}}
+                </div>
+
+            {{/.}}
+        {{/inspectedUser.completionPerDay}}
+        <!--
+        { {#inspectedUser.completedChallenges.isEmpty}}
+
+            <h2>
+            { {#isCurrentUser}}
+                Du
+            { {/isCurrentUser}}
+            { {^isCurrentUser}}
+                { {inspectedUser.username}}
+            { {/isCurrentUser}}
+                har inte klarat någon dag :'(
+            </h2>
+        { {/inspectedUser.completedChallenges.isEmpty}}
+        { {^inspectedUser.completedChallenges.isEmpty}}
+            <h2>
+            { {#isCurrentUser}}
+                Du
+            { {/isCurrentUser}}
+            { {^isCurrentUser}}
+                { {inspectedUser.username}}
+            { {/isCurrentUser}}
+                har klarat följande dagar:
+            </h2>
+            <ul>
+            { {#inspectedUser.completedChallenges}}
+                <li>Dag { {day}} ⭐</li>
+            { {/inspectedUser.completedChallenges}}
+            </ul>
+    { {/inspectedUser.completedChallenges.isEmpty}}
+
+    -->
+    </div>
 
 </div>
 
