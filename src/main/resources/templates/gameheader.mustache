@@ -1,6 +1,11 @@
 {{> header}}
 {{> toprow}}
 
+
+
+
+
+
 <script>
     var user = {
         "username": "{{user.username}}",
@@ -10,6 +15,10 @@
 </script>
 <div class="main-container">
     <div class="main-content-vertical-pad"> </div>
-    <div class="main-columns">
-        <div class="main-content-left-pad"> </div>
+    <div class="game-columns">
+        <div class="story-wrapper">
+            <div class="story-container">
+                {{{story}}}
+            </div>
+        </div>
         <div class="game-container">

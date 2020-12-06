@@ -1,5 +1,6 @@
 package se.teamkugel.julhaxx
 
+import com.samskivert.mustache.Mustache
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse
 @Controller
 class HtmlController(val userRepository: UserRepository,
                      val daysRepository: DaysRepository,
+                     val storyCompiler: StoryCompiler,
                      val webSocketsController: WebSocketsController /*Uuuuh this is ugly. But how else to solve it?*/) {
 
     @GetMapping("/")
@@ -29,6 +31,7 @@ class HtmlController(val userRepository: UserRepository,
             model["title"] = "Dag $activeDay"
             model["user"] = user
             model["activeDay"] = activeDay
+            model["story"] = storyCompiler.daysToStoryHtml[activeDay]!!
             model["emojis"] = EMOJIS
             model["chatHistory"] = WebSocketsController.savedMessagesQueue.toTypedArray()
             addTopRowDays(model, activeDay)

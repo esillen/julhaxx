@@ -1,0 +1,27 @@
+.story-wrapper {
+    flex: 1;
+    background-image: url("/img/wooden-boards.jpg");
+    background-size: auto 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.story-container {
+    background-color: rgb(75 52 16 / 40%);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    height: 460px;
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+}
+
+.story-verse {
+    font-family: 'Rochester', cursive;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(20 20 20 / 90%);
+    font-size: 18px;
+    text-align: center;
+}

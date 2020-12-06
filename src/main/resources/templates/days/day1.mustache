@@ -1,7 +1,7 @@
 {{> gameheader}}
 
 <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas"></canvas>
+    <canvas id="unity-canvas" tabindex="1"></canvas>
     <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -12,11 +12,6 @@
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
     </div>
-</div>
-<div style="background: white;">
-    <a href="/manuals/manualA" target="_blank" style="background: white; padding: 2px; margin: 2px;">manual till maskin A</a>
-    <a href="/manuals/manualB" target="_blank" style="background: white; padding: 2px; margin: 2px;">manual till maskin B</a>
-    <a href="/manuals/manualC" target="_blank" style="background: white; padding: 2px; margin: 2px;">manual till maskin C</a>
 </div>
 <script>
       var buildUrl = "/webgl/day1/Build";
@@ -41,8 +36,8 @@
         container.className = "unity-mobile";
         config.devicePixelRatio = 1;
       } else {
-        canvas.style.width = "600px";
-        canvas.style.height = "400px";
+        canvas.style.width = "640px";
+        canvas.style.height = "480px";
       }
       loadingBar.style.display = "block";
 

@@ -1,0 +1,9 @@
+.game-columns {
+    height:480px;
+    display: flex;
+    flex-direction: row;
+}
+
+.game-container {
+    background-color: rgb(47,47,47);
+}
