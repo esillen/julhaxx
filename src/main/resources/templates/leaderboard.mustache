@@ -1,6 +1,7 @@
 {{> header}}
+{{> toprow}}
 
-<table>
+<table style="flex:1;">
     <thead>
     <tr>
         <td>Namn</td>
@@ -10,13 +11,11 @@
     <tbody>
     {{#users}}
         <tr>
-            <td>{{username}}</td>
+            <td><a href="/user/{{username}}">{{username}}</a></td>
             <td>{{numStars}}⭐</td>
         </tr>
     {{/users}}
     </tbody>
 </table>
-
-
 
 {{>footer }}

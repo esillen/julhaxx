@@ -52,12 +52,19 @@ class HtmlController(val userRepository: UserRepository,
 
     @GetMapping("/leaderboard")
     fun leaderboard(model: Model): String {
-        val users = userRepository.findAll()
-        model["users"] = users.map {
-            LeaderboardUser(it.username, it.completedChallenges.size)
-        }.sortedByDescending { it.numStars }
-        model["title"] = "Topplista"
-        return "leaderboard"
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            return error(model)
+        } else {
+            model["user"] = user
+            val users = userRepository.findAll()
+            model["users"] = users.map {
+                LeaderboardUser(it.username, it.completedChallenges.size)
+            }.sortedByDescending { it.numStars }
+            model["title"] = "Topplista"
+            addTopRowDays(model)
+            return "leaderboard"
+        }
     }
 
     val NUMBER_OF_GROUPS = 3
