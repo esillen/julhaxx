@@ -5,7 +5,7 @@ private val day2ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf
 private val day3ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
 private val day4ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
 private val day5ChallengeCodes = mapOf(1 to "staroftheshow", 2 to "winconditionmet", 3 to "noresistanceplease")
-private val day6ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
+private val day6ChallengeCodes = mapOf(1 to "fladderBasicDFHDHD", 2 to "fladderMediumDRYNY", 3 to "epicFladderShiteXXX")
 private val day7ChallengeCodes = mapOf(1 to "asdf", 2 to "lolol", 3 to "asdfasdf")
 
 

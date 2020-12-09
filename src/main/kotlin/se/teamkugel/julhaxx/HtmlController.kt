@@ -150,4 +150,24 @@ class HtmlController(val userRepository: UserRepository,
         return "error"
     }
 
+	@PostMapping("/fladder")
+    @ResponseBody
+    fun postFladderUpdate(model: Model, @RequestBody data: String) {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            throw Exception("user not found or something")
+        } else {
+        	System.out.println("Got fladder data: ${data}")
+			val distance = data.substring("distance: ".length).toInt()
+			if(distance >= 30) {
+				completeChallenge(model, 6, 1, "fladderBasicDFHDHD")
+			}
+			if(distance >= 50) {
+				completeChallenge(model, 6, 2, "fladderMediumDRYNY")
+			}
+			if(distance >= 100) {
+				completeChallenge(model, 6, 3, "epicFladderShiteXXX")
+			}
+        }
+    }
 }
