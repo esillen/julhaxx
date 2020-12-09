@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 
 // Based on tutorial https://www.vojtechruzicka.com/spring-boot-add-war-to-embedded-tomcat/
-/*
+
 @Configuration
 public class FladderTomtenConfiguration {
 	@Bean
@@ -43,5 +43,4 @@ public class FladderTomtenConfiguration {
 		};
 	}
 }
-*/
 
