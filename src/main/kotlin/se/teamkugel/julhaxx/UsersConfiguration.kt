@@ -24,7 +24,8 @@ class UsersConfiguration(userRepository: UserRepository) {
         val erik = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("erik", "asdf",  mutableListOf(cc1, cc2)))
         val fredde = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("fredde", "asdf", mutableListOf(cc3)))
         val caro = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("caro", "asdf", mutableListOf()))
-        val matte = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("matte", "asdf", mutableListOf()))
+        val matte = userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("matte", "asdf", mutableListOf()))       
+        userRepository.saveIfUsernameDoesNotExist(JulhaxxUser("daniel", "asdf", mutableListOf()))
 
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
