@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Julspel1",
+"productVersion": "0.1",
+"dataUrl": "julspel1_webgl.data.unityweb",
+"wasmCodeUrl": "julspel1_webgl.wasm.code.unityweb",
+"wasmFrameworkUrl": "julspel1_webgl.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.15f1"
+}
