@@ -14,19 +14,19 @@
     </a>
     {{#topRowDays}}
         {{#current}}
-            <div class="top-row-item top-row-item-current">Dag {{number}}</div>
+            <div class="top-row-item top-row-item-current">{{title}}</div>
         {{/current}}
         {{^current}}
             {{#available}}
                 <a class="top-row-item-link" href="/game?day={{number}}">
                 <div class="top-row-item">
-                    Dag {{number}}
+                    {{title}}
                 </div>
                 </a>
 
             {{/available}}
             {{^available}}
-                <div class="top-row-item top-row-item-unavailable">🔒 Dag {{number}}</div>
+                <div class="top-row-item top-row-item-unavailable">🔒 {{title}}</div>
             {{/available}}
         {{/current}}
     {{/topRowDays}}

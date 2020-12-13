@@ -46,7 +46,10 @@ class HtmlController(val userRepository: UserRepository,
         model["topRowDays"] = daysRepository.findAll()
                 .sortedBy { it.number }
                 .map {
-            TopRowDay(it.number, it.available, it.number==activeDay)
+            TopRowDay(it.number,
+                    if (it.number == 7) "Julafton" else if (it.number == 6) "Dan före" else "Dag ${it.number}",
+                    it.available,
+                    it.number==activeDay)
         }
     }
 
