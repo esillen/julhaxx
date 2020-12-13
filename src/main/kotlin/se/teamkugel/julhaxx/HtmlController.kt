@@ -109,7 +109,7 @@ class HtmlController(val userRepository: UserRepository,
     @PostMapping("/completeChallenge")
     @ResponseBody
     fun completeChallenge(model: Model, @RequestParam day: Int, @RequestParam challengeNumber: Int, @RequestParam code: String) {
-        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        val user = userRepository.findByUsernameForChallengeUpdate(SecurityContextHolder.getContext().authentication.name)
         if (user == null) {
             throw Exception("user not found or something")
         } else {
