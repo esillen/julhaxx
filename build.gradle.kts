@@ -8,6 +8,7 @@ plugins {
 	kotlin("plugin.jpa") version "1.4.10"
 	kotlin("plugin.allopen") version "1.3.61"
 	id("java")
+	id("com.heroku.sdk.heroku-gradle") version "2.0.0"
 }
 
 
@@ -44,7 +45,7 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	implementation("org.postgresql:postgresql")
-	runtimeOnly("com.h2database:h2")
+	// runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
