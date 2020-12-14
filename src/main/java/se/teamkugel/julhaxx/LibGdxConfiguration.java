@@ -37,7 +37,8 @@ public class LibGdxConfiguration {
 	
 	private void addLibGdxWebapp(Tomcat tomcat, String context, String warFile) {
 		try {
-			tomcat.addWebapp(context, ResourceUtils.getFile(warFile).toURI().toURL());
+			//tomcat.addWebapp(context, ResourceUtils.getFile(warFile).toURI().toURL());
+			tomcat.addWebapp(context, ResourceUtils.getURL(warFile));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
