@@ -1,5 +1,4 @@
 .game-columns {
-    height:480px;
     display: flex;
     flex-direction: row;
 }
