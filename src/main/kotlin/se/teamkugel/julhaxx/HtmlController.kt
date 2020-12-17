@@ -50,7 +50,7 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     fun DaysRepository.lastAvailableDay(): Day? {
-        return this.findAll().sortedByDescending { it.number }.first { it.available }
+        return this.findAll().sortedByDescending { it.number }.firstOrNull { it.available }
     }
 
     private fun updateDays() {
