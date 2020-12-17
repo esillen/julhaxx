@@ -32,6 +32,10 @@ body {
     flex-direction: column;
 }
 
+.main-container-error {
+    flex: 1;
+}
+
 .main-content-vertical-pad {
     flex:1;
 }

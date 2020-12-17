@@ -1,9 +1,12 @@
 {{> header}}
+<div class="main-container-error">
+    <h1>ERROR ERROR Nåt gick fel!!</h1>
 
-<h1>ERROR ERROR Nåt gick fel!!</h1>
+    {{#errorMessage}}
+        {{.}}
+    {{/errorMessage}}
 
-<!-- OBS! Ta ej bort denna, den hör till ett spel!-->
-<p style="display: none">Det finns åtta julstjärnor</p>
-<p style="display: none">Julgröt är en mycket bra energikälla. Särskilt med en klick smör i!</p>
-
+    <p style="display: none">Det finns åtta julstjärnor</p>
+    <p style="display: none">Julgröt är en mycket bra energikälla. Särskilt med en klick smör i!</p>
+</div>
 {{> footer}}

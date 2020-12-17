@@ -8,6 +8,7 @@ import org.springframework.security.authentication.event.InteractiveAuthenticati
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.util.HtmlUtils.htmlEscape
 import java.security.Principal
 import java.util.*
 
@@ -24,7 +25,7 @@ class WebSocketsController(val userRepository: UserRepository,
         if (user == null) {
             throw Exception("Could not find user ${principal.name}")
         } else {
-            val internalMessage = InternalChatMessage(user.username, receivedMessage.content, ChatMessageType.FROM_USER)
+            val internalMessage = InternalChatMessage(user.username, htmlEscape(receivedMessage.content), ChatMessageType.FROM_USER)
             addMessageToQueue(internalMessage)
             val chatMessage = internalMessage.toChatMessage(userRepository)
             if (chatMessage != null) {

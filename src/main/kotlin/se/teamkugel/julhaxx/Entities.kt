@@ -43,5 +43,6 @@ class JulhaxxUser(
 @Entity
 class Day(
         @Id var number: Int,
+        var title: String,
         var available: Boolean
 )
