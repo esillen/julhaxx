@@ -17,7 +17,7 @@ class HtmlController(val userRepository: UserRepository,
 
     @GetMapping("/")
     fun index(model: Model): String {
-        return game(model, 0)
+        return game(model, null)
     }
 
     @GetMapping("/game")

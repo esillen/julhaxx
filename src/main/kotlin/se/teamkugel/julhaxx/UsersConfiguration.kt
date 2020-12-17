@@ -30,7 +30,6 @@ class UsersConfiguration(userRepository: UserRepository) {
         System.out.println("Num Saved users" + userRepository.findAll().count())
     }
 
-
 }
 
 fun UserRepository.saveIfUsernameDoesNotExist(user: JulhaxxUser) {
