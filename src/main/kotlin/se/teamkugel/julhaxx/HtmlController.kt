@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
+import java.time.Period
 import javax.servlet.RequestDispatcher
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -30,7 +32,7 @@ class HtmlController(val userRepository: UserRepository,
         if (user == null) {
             return errorMessage(model, "Någonting är fel med din inloggning :/")
         } else {
-            val activeDay = day ?: 0 // To make /game ending up at day 0
+            val activeDay = day ?: daysRepository.lastAvailableDay()?.number ?: 0 // To make /game ending up at current day
             if (activeDay == 0 || daysRepository.findByIdOrNull(activeDay)?.available == true) {
                 model["title"] = "Dag $activeDay"
                 model["user"] = user
@@ -47,7 +49,29 @@ class HtmlController(val userRepository: UserRepository,
         }
     }
 
+    fun DaysRepository.lastAvailableDay(): Day? {
+        return this.findAll().sortedByDescending { it.number }.first { it.available }
+    }
+
+    private fun updateDays() {
+        val currentActiveDayNumber = Period.between(START_DATE, LocalDate.now()).days + 1
+        val days = daysRepository.findAll()
+        days.forEach { day ->
+            if (day.number <= currentActiveDayNumber) {
+                if (!day.available) {
+                    day.available = true
+                }
+            } else {
+                if (day.available) {
+                    day.available = false
+                }
+            }
+        }
+        daysRepository.saveAll(days)
+    }
+
     private fun addTopRowDays(model: Model, activeDay: Int = -1) {
+        updateDays()
         model["topRowDays"] = daysRepository.findAll()
                 .sortedBy { it.number }
                 .map {

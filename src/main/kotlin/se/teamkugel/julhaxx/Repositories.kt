@@ -20,4 +20,6 @@ interface CompletedChallengesRepository: CrudRepository<CompletedChallenge, Long
 
 interface DaysRepository: CrudRepository<Day, Int> {
     fun findByNumber(number: Int): Day?
+
+
 }
