@@ -33,6 +33,8 @@ class WebSecurityConfig(val usersConfiguration: UsersConfiguration, val userRepo
                 .and()
                 .logout()
                 .permitAll();
+
+	http.headers().frameOptions().sameOrigin();	
     }
 
     @Bean
