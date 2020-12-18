@@ -128,7 +128,7 @@ class MattesUserDetailsManager(  //	private final IUserDetailsRepo users = new I
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val user = users[username.toLowerCase()] ?: throw UsernameNotFoundException(username)
+        val user = users[username] ?: throw UsernameNotFoundException(username)
         return User(user.username, user.password, user.isEnabled, user.isAccountNonExpired,
                 user.isCredentialsNonExpired, user.isAccountNonLocked, user.authorities)
     }
