@@ -4,7 +4,7 @@
 <div class="login-wrapper">
 
     <div class="login-container">
-        <div class="login-header">Ultimata Julspelet</div>
+        <div class="login-header">Det Episka Julspelet</div>
 
         <div class="login-form-container">
             <form action="login" method="post">
@@ -20,6 +20,9 @@
                         </tr>
                     </tbody>
                 </table>
+                {{#error}}
+                    <div class="login-error">Fel lösenord eller användarnamn. Eller så gick något helt annat fel...</div>
+                {{/error}}
                 <div class="login-submit-container"><input type="submit" value="Sign In"/></div>
             </form>
         </div>

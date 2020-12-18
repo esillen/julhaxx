@@ -32,3 +32,9 @@ td.login-right-adjust {
 .login-submit-container {
     margin: 10px;
 }
+
+.login-error {
+    padding: 5px;
+    background: darkgreen;
+    color:red;
+}

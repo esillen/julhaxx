@@ -182,8 +182,9 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     @GetMapping("/login")
-    fun login(model: Model): String {
+    fun login(model: Model, @RequestParam error: Boolean?): String {
         model["title"] = "Logga in"
+        model["error"] = error ?: false
         addJulhaxx(model);
         return "login"
     }
