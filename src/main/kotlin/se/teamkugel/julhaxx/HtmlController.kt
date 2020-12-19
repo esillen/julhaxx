@@ -14,11 +14,11 @@ import javax.servlet.RequestDispatcher
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
 @Controller
 class HtmlController(val userRepository: UserRepository,
                      val daysRepository: DaysRepository,
                      val storyCompiler: StoryCompiler,
+                     val persistedChatMessageRepository: PersistedChatMessageRepository,
                      val webSocketsController: WebSocketsController,  /*Uuuuh this is ugly. But how else to solve it?*/) : ErrorController {
 
     @GetMapping("/")
@@ -141,6 +141,14 @@ class HtmlController(val userRepository: UserRepository,
             addJulhaxx(model);
             return "user"
         }
+    }
+
+    @GetMapping("/longchat")
+    fun longchat(model: Model) : String {
+        model["title"] = "Chatlogg"
+        addJulhaxx(model)
+        model["chatlog"] = persistedChatMessageRepository.findAll()
+        return "longchat"
     }
 
 
