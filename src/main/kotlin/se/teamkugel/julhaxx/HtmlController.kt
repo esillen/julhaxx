@@ -145,10 +145,18 @@ class HtmlController(val userRepository: UserRepository,
 
     @GetMapping("/longchat")
     fun longchat(model: Model) : String {
-        model["title"] = "Chatlogg"
-        addJulhaxx(model)
-        model["chatlog"] = persistedChatMessageRepository.findAll()
-        return "longchat"
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            return errorMessage(model, "Något är fel med din inloggning :/")
+        } else {
+            model["title"] = "Chatlogg"
+            model["user"] = user!!
+            addTopRowDays(model)
+            addJulhaxx(model)
+            // Not that performant but whatevz
+            model["chatHistory"] = persistedChatMessageRepository.findAll().map { it.toChatMessageSimple() }
+            return "longchat"
+        }
     }
 
 

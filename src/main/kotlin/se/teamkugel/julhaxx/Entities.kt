@@ -54,4 +54,18 @@ class PersistedChatMessage(
         var type: ChatMessageType,
         var completedAt: LocalDateTime = LocalDateTime.now(),
         @Id @GeneratedValue var id: Long? = null
-)
+) {
+    fun toChatMessage(userRepository: UserRepository): ChatMessage? {
+        val user = userRepository.findByUsername(username)
+        if (user != null) {
+            return ChatMessage(user.username, user.emoji, user.completedChallenges.size, content, type)
+        } else {
+            return null
+        }
+    }
+
+    fun toChatMessageSimple() : ChatMessage {
+        return ChatMessage(username, "", 0, content, type)
+    }
+
+}

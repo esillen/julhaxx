@@ -1,11 +1,29 @@
-{{> header}}
+{{> gameheader}}
+
+<script>
+        var chatHistory = [
+        {{#chatHistory}}
+            {
+                "username": "{{username}}",
+                "emoji": "{{emoji}}",
+                "numStars": "{{numStars}}",
+                "content": "{{content}}",
+                "type": "{{type}}"
+            },
+        {{/chatHistory}}
+        ];
+    </script>
 
 Chatlogg
 
-<ul>
-{{#chatlog}}
-    <li>{{username}}: {{content}}</li>
-{{/chatlog}}
-</ul>
+<div class="chat-container">
+
+    <div class="chat-messages-wrapper">
+        <div class="chat-messages-container" id="chat-messages-container">
+
+        </div>
+</div>
+
+<script src="/js/longchat.js"></script>
 
 {{> footer}}
