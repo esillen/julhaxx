@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
-import java.time.Period
+import java.time.Duration
+import java.time.LocalDateTime
 import javax.servlet.RequestDispatcher
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -54,7 +54,7 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     private fun updateDays() {
-        val currentActiveDayNumber = Period.between(START_DATE, LocalDate.now()).days + 1
+        val currentActiveDayNumber = Duration.between(START_DATE.atTime(0,1), LocalDateTime.now()).toDays() + 1
         val days = daysRepository.findAll()
         days.forEach { day ->
             if (day.number <= currentActiveDayNumber) {
