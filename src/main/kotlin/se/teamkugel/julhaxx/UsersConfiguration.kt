@@ -34,6 +34,7 @@ val fakeUsers = listOf(
 )
 // NOTE: NEVER EVER CHANGE THESE LISTS WITHOUT ALSO FIXING THE DB!!! DUPLICATE USERS = BAD
 val realUsers = listOf(
+        JulhaxxUser("caro", "pyskorfv", mutableListOf()),
         JulhaxxUser("agixel", "phdochdink", mutableListOf()),
         JulhaxxUser("evedario", "levelmario", mutableListOf()),
         JulhaxxUser("morrisaga", "knorrisdaga", mutableListOf()),
