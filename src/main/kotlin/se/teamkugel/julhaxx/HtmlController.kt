@@ -8,18 +8,44 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
+import java.io.IOException
 import java.time.Duration
 import java.time.LocalDateTime
-import javax.servlet.RequestDispatcher
+import javax.servlet.*
+import javax.servlet.annotation.WebFilter
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+
+@WebFilter("*.unityweb")
+class AddResponseHeaderFilter : Filter {
+    @Throws(IOException::class, ServletException::class)
+    override fun doFilter(request: ServletRequest?, response: ServletResponse,
+                          chain: FilterChain) {
+        val httpServletResponse = response as HttpServletResponse
+        httpServletResponse.setHeader("Content-Encoding", "gzip")
+        chain.doFilter(request, response)
+    }
+
+    @Throws(ServletException::class)
+    override fun init(filterConfig: FilterConfig?) {
+        // ...
+    }
+
+    override fun destroy() {
+        // ...
+    }
+}
+
+
 @Controller
-class HtmlController(val userRepository: UserRepository,
-                     val daysRepository: DaysRepository,
-                     val storyCompiler: StoryCompiler,
-                     val persistedChatMessageRepository: PersistedChatMessageRepository,
-                     val webSocketsController: WebSocketsController,  /*Uuuuh this is ugly. But how else to solve it?*/) : ErrorController {
+class HtmlController(
+        val userRepository: UserRepository,
+        val daysRepository: DaysRepository,
+        val storyCompiler: StoryCompiler,
+        val persistedChatMessageRepository: PersistedChatMessageRepository,
+        val webSocketsController: WebSocketsController,  /*Uuuuh this is ugly. But how else to solve it?*/
+) : ErrorController {
 
     @GetMapping("/")
     fun index(model: Model): String {
@@ -54,7 +80,7 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     private fun updateDays() {
-        val currentActiveDayNumber = Duration.between(START_DATE.atTime(0,1), LocalDateTime.now()).toDays() + 1
+        val currentActiveDayNumber = Duration.between(START_DATE.atTime(0, 1), LocalDateTime.now()).toDays() + 1
         val days = daysRepository.findAll()
         days.forEach { day ->
             if (day.number <= currentActiveDayNumber) {
