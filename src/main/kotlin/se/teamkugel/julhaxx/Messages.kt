@@ -12,6 +12,11 @@ data class InternalChatMessage(val username: String, val content: String, val ty
             return null
         }
     }
+
+    fun toPersistedChatMessage() : PersistedChatMessage {
+        return PersistedChatMessage(username, content, type)
+    }
+
 }
 
 data class ReceivedChatMessage(val content: String)

@@ -15,7 +15,8 @@ import java.util.*
 
 @Controller
 class WebSocketsController(val userRepository: UserRepository,
-                           val websocketsTemplate: SimpMessagingTemplate) {
+                           val websocketsTemplate: SimpMessagingTemplate,
+                           val persistedChatMessageRepository: PersistedChatMessageRepository) {
 
     @Transactional
     @MessageMapping("/chat")
@@ -30,6 +31,7 @@ class WebSocketsController(val userRepository: UserRepository,
             addMessageToQueue(internalMessage)
             val chatMessage = internalMessage.toChatMessage(userRepository)
             if (chatMessage != null) {
+                tryPersistMessage(internalMessage)
                 return chatMessage
             } else {
                 throw Exception("Could not convert message :/")
@@ -58,6 +60,16 @@ class WebSocketsController(val userRepository: UserRepository,
         val chatMessage = internalMessage.toChatMessage(userRepository)
         if (chatMessage != null) {
             websocketsTemplate.convertAndSend("/topic/chat", chatMessage)
+            tryPersistMessage(internalMessage)
+        }
+    }
+
+    private fun tryPersistMessage(internalMessage: InternalChatMessage) {
+        // Persist
+        try {
+            persistedChatMessageRepository.save(internalMessage.toPersistedChatMessage())
+        } catch (e: Exception) {
+            println(e.message)
         }
     }
 
@@ -69,7 +81,7 @@ class WebSocketsController(val userRepository: UserRepository,
     }
 
     companion object {
-        const val CHAT_HISTORY = 50
+        const val CHAT_HISTORY = 100
         val savedMessagesQueue: Queue<InternalChatMessage> = LinkedList()
     }
 }

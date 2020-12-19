@@ -8,17 +8,17 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
-import java.time.Period
+import java.time.Duration
+import java.time.LocalDateTime
 import javax.servlet.RequestDispatcher
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-
 
 @Controller
 class HtmlController(val userRepository: UserRepository,
                      val daysRepository: DaysRepository,
                      val storyCompiler: StoryCompiler,
+                     val persistedChatMessageRepository: PersistedChatMessageRepository,
                      val webSocketsController: WebSocketsController,  /*Uuuuh this is ugly. But how else to solve it?*/) : ErrorController {
 
     @GetMapping("/")
@@ -54,7 +54,7 @@ class HtmlController(val userRepository: UserRepository,
     }
 
     private fun updateDays() {
-        val currentActiveDayNumber = Period.between(START_DATE, LocalDate.now()).days + 1
+        val currentActiveDayNumber = Duration.between(START_DATE.atTime(0,1), LocalDateTime.now()).toDays() + 1
         val days = daysRepository.findAll()
         days.forEach { day ->
             if (day.number <= currentActiveDayNumber) {
@@ -140,6 +140,22 @@ class HtmlController(val userRepository: UserRepository,
             addTopRowDays(model)
             addJulhaxx(model);
             return "user"
+        }
+    }
+
+    @GetMapping("/longchat")
+    fun longchat(model: Model) : String {
+        val user = userRepository.findByUsername(SecurityContextHolder.getContext().authentication.name)
+        if (user == null) {
+            return errorMessage(model, "Något är fel med din inloggning :/")
+        } else {
+            model["title"] = "Chatlogg"
+            model["user"] = user!!
+            addTopRowDays(model)
+            addJulhaxx(model)
+            // Not that performant but whatevz
+            model["chatHistory"] = persistedChatMessageRepository.findAll().map { it.toChatMessageSimple() }
+            return "longchat"
         }
     }
 
