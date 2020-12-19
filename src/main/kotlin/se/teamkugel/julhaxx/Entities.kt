@@ -46,3 +46,12 @@ class Day(
         var title: String,
         var available: Boolean
 )
+
+@Entity
+class PersistedChatMessage(
+        var username: String,
+        var content: String,
+        var type: ChatMessageType,
+        var completedAt: LocalDateTime = LocalDateTime.now(),
+        @Id @GeneratedValue var id: Long? = null
+)

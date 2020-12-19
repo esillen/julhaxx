@@ -15,7 +15,8 @@ import java.util.*
 
 @Controller
 class WebSocketsController(val userRepository: UserRepository,
-                           val websocketsTemplate: SimpMessagingTemplate) {
+                           val websocketsTemplate: SimpMessagingTemplate,
+                           val persistedChatMessageRepository: PersistedChatMessageRepository) {
 
     @Transactional
     @MessageMapping("/chat")
@@ -58,6 +59,12 @@ class WebSocketsController(val userRepository: UserRepository,
         val chatMessage = internalMessage.toChatMessage(userRepository)
         if (chatMessage != null) {
             websocketsTemplate.convertAndSend("/topic/chat", chatMessage)
+            // Persist
+            try {
+                persistedChatMessageRepository.save(internalMessage.toPersistedChatMessage())
+            } catch (e: Exception) {
+                println(e.message)
+            }
         }
     }
 
