@@ -4,18 +4,34 @@
 Kan troligen ta bort en del.}}
 
 <div class="webgl-content">
-      <div id="unityContainer" style="width: 640px; height: 480px"></div>
+      <div id="unityContainer" style="width: 640px; height: 480px">
+          {{!
+          <div class="progress Dark" style="display: none;">
+              <div class="empty" style="width: 100%;"></div>
+              <div class="full" style="width: 0%;"></div>
+          </div>
+          }}
+      </div>
       <div class="footer">
         <div class="webgl-logo"></div>
         <div class="unity-fullscreen-button"></div>
       </div>
 </div>
-<script src="/webgl/day4/TemplateData/UnityProgress.js"></script>
+{{!<script src="/webgl/day4/TemplateData/UnityProgress.js"></script> }}
 <script>
-      var buildUrl = "/webgl/day4/Build";
+      {{! Change here for which day}}
+      var gameDir = "/webgl/day4";
+
+      {{! Don't change this }}
+      var buildUrl = gameDir + "/Build";
+      var templateUrl = gameDir + "/TemplateData";
       var loaderUrl = buildUrl + "/UnityLoader.js";
+      var progressUrl = templateUrl + "/UnityProgress.js";
+      var unityCSS = templateUrl + "/style.css";
+
+      {{! Change here for whatever your build is called, it's the only .json file }}
       var unityJson = buildUrl + "/julspel1_webgl.json";
-      var progressUrl = "/webgl/day4/TemplateData/UnityProgress.js"
+
 
       var container = document.querySelector("#unityContainer");
       var fullscreenButton = document.querySelector(".unity-fullscreen-button");
@@ -28,7 +44,6 @@ Kan troligen ta bort en del.}}
         container.style.height = "480px";
       }
 
-      {{! Det här var ett försök att få igång progressBaren, som misslyckades. }}
       var script1 = document.createElement("script");
       script1.src = progressUrl;
       document.body.appendChild(script1);
